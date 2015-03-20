@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# I excluded this backup script from being copied as the prof says it is up to us
+# this is for backup when login, meaning relative path from home
+# home has a directory called Source, as indicated by the assignment
+if [ -d Source ]; then
+	for f in ./Source/*; do
+		if [ $f != "./Source/backup" ]; then
+			cp -u $f ./Source/Backup/
+		fi
+	done
+# this is for backup commandline, ./backup  , so relative path from Source
+else
+	for i in *; do	
+		if [ $i != "backup" ]; then
+			cp -u $i ./Backup/
+		fi
+	done
+fi
+

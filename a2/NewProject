@@ -1,0 +1,35 @@
+#!/bin/bash
+if [ $# = 1 ]; then
+	mkdir "$1"
+	mkdir ./"$1"/docs/
+	mkdir ./"$1"/source/
+	mkdir ./"$1"/backup/
+	mkdir ./"$1"/archive/
+
+	touch ./$1/source/compile
+	chmod +x ./$1/source/compile
+	echo "#!/bin/bash" >> ./$1/source/compile
+	echo "if [ $""1 != '-o' ]; then" >> ./$1/source/compile
+	echo "	cd ../" >> ./$1/source/compile
+	echo "	tar -cf ./archive/backup-$""(date --iso).tar ./backup/" >> ./$1/source/compile
+	echo "	yes | cp ./source/* ./backup/" >> ./$1/source/compile
+	echo "	cd ./source" >> ./$1/source/compile
+	echo "	gcc $""1 &> errors" >> ./$1/source/compile
+	echo "	more errors" >> ./$1/source/compile
+	echo
+        echo "elif [ $""# -lt 3 ]; then" >> ./$1/source/compile
+        echo "	echo \"You are missing file names. Type in: compile -o executable file(s) or compile file(s)"\" >> ./$1/source/compile
+	echo "else" >> ./$1/source/compile
+	echo "	cd ../" >> ./$1/source/compile
+	echo "	tar -cf ./archive/backup-$""(date --iso).tar ./backup/" >> ./$1/source/compile
+	echo "	yes | cp ./source/* ./backup/" >> ./$1/source/compile
+	echo "	gcc -o ./source/$""2 ./source/$""3 &> ./source/errors" >> ./$1/source/compile
+	echo "	more ./source/errors" >> ./$1/source/compile
+	echo "fi" >> ./$1/source/compile
+else
+	if [ -z "$1" ]; then
+		echo "Project name is missing. Type in: NewProject project_name"
+	elif [ $# -gt 1 ]; then
+		echo "Your project name must be a single word. Type in:  NewProject project_name"
+	fi
+fi
